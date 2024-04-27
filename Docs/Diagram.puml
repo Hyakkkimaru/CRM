@@ -1,0 +1,59 @@
+@startuml
+title Cafe CRM System
+
+class Customer {
+   -firstName: string
+   -lastName: string
+   -email: string
+   -phone: string
+   +getFullName(): string
+   +getEmail(): string
+   +getPhone(): string
+   +setEmail(email: string): void
+   +setPhone(phone: string): void
+}
+
+class Order {
+   -orderID: string
+   -customer: Customer
+   -orderDetails: OrderDetail[]
+   +calculateTotal(): float
+   +getOrderID(): string
+   +getCustomer(): Customer
+   +getOrderDetails(): OrderDetail[]
+}
+
+class OrderDetail {
+   -product: Product
+   -quantity: int
+   +getProduct(): Product
+   +getQuantity(): int
+   +setQuantity(quantity: int): void
+}
+
+class Product {
+   -productID: string
+   -name: string
+   -price: float
+   +getProductID(): string
+   +getName(): string
+   +getPrice(): float
+}
+
+class CRMSystem {
+   -customers: Customer[]
+   -orders: Order[]
+   +addCustomer(customer: Customer): void
+   +removeCustomer(customer: Customer): void
+   +getCustomer(email: string): Customer
+   +addOrder(order: Order): void
+   +getOrder(orderID: string): Order
+}
+
+Customer -- Order : places
+Order -- OrderDetail : contains
+OrderDetail -- Product : refers
+CRMSystem -- Customer : manages
+CRMSystem -- Order : processes
+
+@enduml
